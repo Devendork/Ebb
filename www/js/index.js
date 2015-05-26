@@ -21,7 +21,6 @@
 
 var module = angular.module('app', ['onsen']); 
 var hasGL = undefined;
-var render_raw = true;
 
 var app = {
     //global bluetooth vars
@@ -50,6 +49,8 @@ var app = {
         //init bluetooth and ui elements
         bt.init();        
         ui.init();
+        data.init();
+        data.getData();
 
     },
 

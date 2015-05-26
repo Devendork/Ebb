@@ -12,6 +12,10 @@ var ui = {
     var class_bt = $('.bluetooth');
     var but_connect = $('#connect');
     var but_bt_close = $('#bt_close_select');
+    ui.data_title = $('#raw_data_title');
+    ui.data_display = $('#raw_data_values');
+    ui.data_units = $('#raw_data_units');
+    ui.main_title = $('#title');
     ui.class_bt_select = $('.bt_select');
 
     //setup the interface
@@ -39,11 +43,16 @@ var ui = {
           ui.serial("removing connection");
           ui.div_bt_alert.hide();
     });
+  },
 
+  displayData:function(type, values){
+    console.log("display");
 
-     
-   
-
+    if(type == "bus"){
+      ui.data_title.text("next bus in");
+      ui.data_display.text(values[0]);
+      ui.data_units.text("minutes");
+    }
   },
 
 
