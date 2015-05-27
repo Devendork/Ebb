@@ -50,7 +50,8 @@ var app = {
         bt.init();        
         ui.init();
         data.init();
-        data.getData();
+        app.navi.on('postpush', app.onPush);
+
 
     },
 
@@ -62,6 +63,20 @@ var app = {
         //it is only called when run on an Android device, won't be called in browher
         
     },
+
+    onPush: function(){
+
+        //get the page on the top of the stack
+        var page = app.navi.pages[app.navi.pages.length-1].name;
+        console.log(page+" pushed");
+
+        switch(page){
+            case "route.html": data.getRoutes(page); break;
+            case "direction.html": data.getDirections(page); break;
+            case "stop.html": data.getStops(page); break;
+            case "prediction.html": data.getStreamData(); break;
+        }
+    }
 
 };
 

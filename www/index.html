@@ -95,8 +95,96 @@
 </head>
 
 <body>    
+
+<ons-navigator animation="slide" var="app.navi">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Top Page</div>
+    </ons-toolbar>
+    <p>
+    <ul class="list list--inset">
+      <li class="list__item list--inset__item list__item--chevron" ng-click="app.navi.pushPage('route.html');">
+        Bus
+      </li>
+      <li class="list__item list--inset__item list__item--chevron" ng-click="app.navi.pushPage('tides.html');">
+        Tides
+      </li>
+    </ul>
+    </p>
+  </ons-page>
+</ons-navigator>
+
+
+<ons-template id="route.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select Route</div>
+    </ons-toolbar>
+
+    <p>
+        <ul id="route" class="list list--inset">
+        </ul>
+    </p>
+    <ons-button modifier="light" ng-click="app.navi.popPage('route.html');">Back</ons-button>
+  </ons-page>
+</ons-template>
+
+<ons-template id="direction.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select Direction</div>
+    </ons-toolbar>
+
+    <p>
+        <ul id="direction" class="list list--inset">
+        </ul>
+    </p>
+    <ons-button modifier="light" ng-click="app.navi.popPage('direction.html');">Back</ons-button>
+  </ons-page>
+</ons-template>
+
+<ons-template id="stop.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select Stop</div>
+    </ons-toolbar>
+
+    <p>
+        <ul id="stop" class="list list--inset">
+        </ul>
+    </p>
+    <ons-button modifier="light" ng-click="app.navi.popPage('stop.html');">Back</ons-button>
+  </ons-page>
+</ons-template>
+
+<ons-template id="prediction.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Bus Prediction</div>
+    </ons-toolbar>
+
+    <p>
+        <div id="raw_data_title"></div>
+        <div id="raw_data_values"></div>
+        <div id="raw_data_units"></div>
+    </p>
+    <ons-button modifier="light" ng-click="app.navi.popPage('stop.html');">Back</ons-button>
+  </ons-page>
+</ons-template>
+
+<ons-template id="tides.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select Region</div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button modifier="light" ng-click="app.navi.popPage('tides.html');">Pop</ons-button>
+    </p>
+  </ons-page>
+</ons-template>
   
-  <ons-sliding-menu
+ <!--  <ons-sliding-menu
     var="app.menu"
     menu-page="menu.html" main-page="d2.html" side="left"
     max-slide-distance="260px" swipeable="true" type="reveal">
@@ -158,7 +246,7 @@
       </div>
 
     </ons-page>
-  </ons-template>
+  </ons-template> -->
 
 
 

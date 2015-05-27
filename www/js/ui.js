@@ -22,7 +22,7 @@ var ui = {
     ui.div_bt_alert.hide();
     class_bt.show();
 
-    app.menu.setSwipeable(true);
+    //app.menu.setSwipeable(true);
    
   
     
@@ -90,6 +90,48 @@ var ui = {
 
   clearSerial:function(){
     //ui.div_serial.text("");
+  },
+
+
+  populateList: function(page, values){
+    var base = page.slice(0, page.length-5);
+    console.log(base);
+
+    // clear the existing list
+    $('#'+base+' li').remove();
+
+    $.each(values, function(index, value) {
+      console.log(value);
+      $('#'+base).append("<li id='"+value.tag+"' class='list__item list--inset__item list__item--chevron'>"+value.title+"</li>")
+    });
+
+    if(base == 'route'){
+      $('#'+base+' li').click(function(){
+        console.log("clicked");
+        console.log($(this).attr("id"));
+        data.setRoute($(this).attr("id"));
+        app.navi.pushPage('direction.html');
+      });
+    }
+
+    if(base == 'direction'){
+      $('#'+base+' li').click(function(){
+        console.log("clicked");
+        console.log($(this).attr("id"));
+        data.setDirection($(this).attr("id"));
+        app.navi.pushPage('stop.html');
+      });
+    }
+
+    if(base == 'stop'){
+      $('#'+base+' li').click(function(){
+        console.log("clicked");
+        console.log($(this).attr("id"));
+        data.setStop($(this).attr("id"));
+        app.navi.pushPage('prediction.html');
+      });
+    }
+
   }
 
 
