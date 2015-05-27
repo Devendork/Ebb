@@ -1,0 +1,17 @@
+{
+  "name": "ProxyServer",
+  "version": "0.0.0",
+  "description": "proxy server for other APIs - quick and dirty proof of concept",
+  "main": "port 3000 /",
+  "dependencies": {
+    "http": "^0.0.0",
+    "request": "^2.55.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
