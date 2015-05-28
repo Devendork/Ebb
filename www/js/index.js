@@ -51,6 +51,7 @@ var app = {
         ui.init();
         data.init();
         app.navi.on('postpush', app.onPush);
+        app.navi.on('prepop', app.onPop);
 
 
     },
@@ -64,17 +65,26 @@ var app = {
         
     },
 
+    onPop: function(){
+       var page = app.navi.getCurrentPage().name;
+        console.log(page+" popped");
+        if(page == "prediction.html") clearInterval(data.timer);
+     
+    },
+
     onPush: function(){
 
         //get the page on the top of the stack
-        var page = app.navi.pages[app.navi.pages.length-1].name;
+        var page = app.navi.getCurrentPage().name;
         console.log(page+" pushed");
-
+       
         switch(page){
-            case "route.html": data.getRoutes(page); break;
-            case "direction.html": data.getDirections(page); break;
-            case "stop.html": data.getStops(page); break;
+            case "agency.html": data.getAgencies(); break;
+            case "route.html": data.getRoutes(); break;
+            case "direction.html": data.getDirections(); break;
+            case "stop.html": data.getStops(); break;
             case "prediction.html": data.getStreamData(); break;
+            case "bluetooth.html": bt.manageConnection(); break;
         }
     }
 
