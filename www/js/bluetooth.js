@@ -37,9 +37,15 @@ var bt = {
         var connect = function(){
             ui.serial("attempting to connect. " +
                     "make sure the serial port is open on the target device");
-
+            
             $("#disconnected").hide();
             $("#connected").show();
+
+            $("#but_disconnect").show();
+            $("#but_disconnect").click(function(){
+                bt.toggleConnection();
+            });
+
 
             bluetoothSerial.connect(
                 bt.macAddress,
@@ -53,6 +59,7 @@ var bt = {
 
             $("#disconnected").show();
             $("#connected").hide();
+            $("#but_disconnect").hide();
             bt.macAddress = undefined;
             ui.serial_content.clear();
 
@@ -89,7 +96,7 @@ var bt = {
     	// var forward = true,
     	// 	playing = false;
 
-     //    ui.serial("-> "+ data);
+         ui.serial("-> "+ data);
 
      //    function startPlaying(){
      //    	playing = true;
@@ -139,7 +146,7 @@ var bt = {
         for(var i in bitmap){
            sum += bitmap[i] * Math.pow(2, i)  
         }
-        bt.sendData(sum);
+        bt.sendData("b"+sum);
 
     },
 
@@ -147,8 +154,7 @@ var bt = {
 
 
         var success = function() {
-            console.log("success");
-            ui.serial("<- " + data);
+            ui.serial("<-a " + data);
         };
 
         var failure = function() {
@@ -163,7 +169,6 @@ var bt = {
 
     closePort:function(){
         ui.serial("Disconneting from "+app.macAddress);
-        connectButton.innerHTML = "Connect";
         bluetoothSerial.unsubscribe(
             function(data){
                 ui.serial(data);
