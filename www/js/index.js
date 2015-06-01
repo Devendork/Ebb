@@ -50,7 +50,9 @@ var app = {
         bt.init();        
         ui.init();
         data.init();
-        data.getData();
+        app.navi.on('postpush', app.onPush);
+        app.navi.on('prepop', app.onPop);
+
 
     },
 
@@ -62,6 +64,29 @@ var app = {
         //it is only called when run on an Android device, won't be called in browher
         
     },
+
+    onPop: function(){
+       var page = app.navi.getCurrentPage().name;
+        console.log(page+" popped");
+        if(page == "prediction.html") clearInterval(data.timer);
+     
+    },
+
+    onPush: function(){
+
+        //get the page on the top of the stack
+        var page = app.navi.getCurrentPage().name;
+        console.log(page+" pushed");
+       
+        switch(page){
+            case "agency.html": data.getAgencies(); break;
+            case "route.html": data.getRoutes(); break;
+            case "direction.html": data.getDirections(); break;
+            case "stop.html": data.getStops(); break;
+            case "prediction.html": data.getStreamData(); break;
+            case "bluetooth.html": bt.manageConnection(); break;
+        }
+    }
 
 };
 

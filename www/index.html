@@ -75,28 +75,313 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
+
     #raw_data_values{
+      font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
       color: #666;
-      font-size: 20em;
       width:100%;
-      height:60%;
+      text-align: center;
+      font-size: 15em;
+      line-height: 1em;
+    }
+
+    #raw_data_units{
+      font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+      color: #666;
+      width:100%;
+      text-align: center;
+      font-size: 2em;
+      line-height: 2em;
+    }
+
+    #raw_data_info{
+      font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+      color: #666;
+      width:100%;
+      text-align: center;
+      font-size: 1em;
       text-align: center;
     }
 
-    #raw_data_units, #raw_data_title{
-      color: #666;
-      font-size: 4em;
+    #data_vis{
       width:100%;
-      height:20%;
       text-align: center;
     }
+
+    .ion-record{
+      font-size:2em;
+      color: #666;
+      line-height: 3em;
+    }
+
   </style>
   
 </head>
 
 <body>    
+
+<ons-navigator animation="slide" var="app.navi">
+  <ons-page>
   
-  <ons-sliding-menu
+     <div class="navigation-bar">
+       <div class="navigation-bar__left">
+      </div>
+
+      <div class="navigation-bar__center">
+        Ebb
+      </div>
+
+      <div class="navigation-bar__right navigation-bar--android__right">
+        <span class="toolbar-button--quiet navigation-bar__line-height">
+        <i class="ion-bluetooth" 
+        ng-click="app.navi.pushPage('bluetooth.html');"
+        style="font-size:24px;"></i>
+        </span>
+      </div>
+
+    </div>
+
+
+    <p>
+    <ul class="list list--inset">
+      <li class="list__item list--inset__item list__item--chevron" 
+        ng-click="app.navi.pushPage('agency.html');">
+        Commute
+      </li>
+      <li class="list__item list--inset__item list__item--chevron" ng-click="app.navi.pushPage('tides.html');">
+        Tides
+      </li>
+    </ul>
+    </p>
+  </ons-page>
+</ons-navigator>
+
+
+<ons-template id="bluetooth.html">
+  <ons-page>
+    
+    <div class="navigation-bar">
+       <div class="navigation-bar__left">
+          <span class="toolbar-button--quiet navigation-bar__line-height">
+          <i class="ion-ios-arrow-back" 
+          style="font-size:24px;"
+          ng-click="app.navi.popPage('bluetooth.html');"></i>
+        </span>
+      </div>
+
+      <div class="navigation-bar__center">
+        Configure Bluetooth
+      </div>
+    </div>
+
+    <!-- if connected show the serial port -->
+    <div id="connected" style="display:none">
+          <p>
+          <button id="but_disconnect" class="button button--large">Disconnect</button>
+          </p>
+          <p>
+            <ons-scroller>
+            <ul id="serialMonitor" class="list list--noborder"></ul>
+            </ons-scroller>
+          </p>
+    </div>
+
+    <!--if not connected show the options-->
+    <div id="disconnected">
+      <p> Select a connection: </p>
+      <ul id="connection_options" class="list">
+      </ul>
+    </div>
+    </p>
+
+  </ons-page>
+</ons-template>
+
+
+<ons-template id="agency.html">
+  <ons-page>
+    
+    <div class="navigation-bar">
+       <div class="navigation-bar__left">
+          <span class="toolbar-button--quiet navigation-bar__line-height">
+          <i class="ion-ios-arrow-back" 
+          style="font-size:24px;"
+          ng-click="app.navi.popPage('agency.html');"></i>
+        </span>
+      </div>
+
+      <div class="navigation-bar__center">
+        Select Agency
+      </div>
+
+      <div class="navigation-bar__right navigation-bar--android__right">
+        <span class="toolbar-button--quiet navigation-bar__line-height">
+        <i class="ion-bluetooth" 
+        ng-click="app.navi.pushPage('bluetooth.html');"
+        style="font-size:24px;"></i>
+        </span>
+      </div>
+
+
+    </div>
+
+    <p>
+        <ul id="agency" class="list list--inset">
+        </ul>
+    </p>
+
+  </ons-page>
+</ons-template>
+
+<ons-template id="route.html">
+  <ons-page>
+    
+    <div class="navigation-bar">
+       <div class="navigation-bar__left">
+          <span class="toolbar-button--quiet navigation-bar__line-height">
+          <i class="ion-android-arrow-back" 
+          style="font-size:24px;"
+          ng-click="app.navi.popPage('route.html');"></i>
+        </span>
+      </div>
+
+      <div class="navigation-bar__center">
+        Select Route
+      </div>
+       <div class="navigation-bar__right navigation-bar--android__right">
+        <span class="toolbar-button--quiet navigation-bar__line-height">
+        <i class="ion-bluetooth" 
+        ng-click="app.navi.pushPage('bluetooth.html');"
+        style="font-size:24px;"></i>
+        </span>
+      </div>
+    </div>
+
+
+
+    <ons-scroller>
+    <p>
+        <ul id="route" class="list list--inset">
+        </ul>
+    </p>
+    </ons-scroller>
+
+  </ons-page>
+</ons-template>
+
+<ons-template id="direction.html">
+  <ons-page>
+    <div class="navigation-bar">
+       <div class="navigation-bar__left">
+          <span class="toolbar-button--quiet navigation-bar__line-height">
+          <i class="ion-android-arrow-back" 
+          style="font-size:24px;"
+          ng-click="app.navi.popPage('direction.html');"></i>
+        </span>
+      </div>
+
+      <div class="navigation-bar__center">
+        Select Direction
+      </div>
+       <div class="navigation-bar__right navigation-bar--android__right">
+        <span class="toolbar-button--quiet navigation-bar__line-height">
+        <i class="ion-bluetooth" 
+        ng-click="app.navi.pushPage('bluetooth.html');"
+        style="font-size:24px;"></i>
+        </span>
+      </div>
+    </div>
+
+    <p>
+        <ul id="direction" class="list list--inset">
+        </ul>
+    </p>
+  </ons-page>
+</ons-template>
+
+<ons-template id="stop.html">
+  <ons-page>
+    <div class="navigation-bar">
+       <div class="navigation-bar__left">
+          <span class="toolbar-button--quiet navigation-bar__line-height">
+          <i class="ion-android-arrow-back" 
+          style="font-size:24px;"
+          ng-click="app.navi.popPage('stop.html');"></i>
+        </span>
+      </div>
+
+      <div class="navigation-bar__center">
+        Select Stop
+      </div>
+       <div class="navigation-bar__right navigation-bar--android__right">
+        <span class="toolbar-button--quiet navigation-bar__line-height">
+        <i class="ion-bluetooth" 
+        ng-click="app.navi.pushPage('bluetooth.html');"
+        style="font-size:24px;"></i>
+        </span>
+      </div>
+    </div>
+    <ons-scroller>
+    <p>
+        <ul id="stop" class="list list--inset">
+        </ul>
+    </p>
+    </ons-scroller>
+  </ons-page>
+</ons-template>
+
+<ons-template id="prediction.html">
+  <ons-page>
+   <div class="navigation-bar">
+       <div class="navigation-bar__left">
+          <span class="toolbar-button--quiet navigation-bar__line-height">
+          <i class="ion-android-arrow-back" 
+          style="font-size:24px;"
+          ng-click="app.navi.popPage('prediction.html');"></i>
+        </span>
+      </div>
+
+      <div class="navigation-bar__center">
+        Predicitons
+      </div>
+       <div class="navigation-bar__right navigation-bar--android__right">
+        <span class="toolbar-button--quiet navigation-bar__line-height">
+        <i class="ion-bluetooth" 
+        ng-click="app.navi.pushPage('bluetooth.html');"
+        style="font-size:24px;"></i>
+        </span>
+      </div>
+    </div>
+
+    <p>
+      <div id="raw_data_values"></div>
+      <div id="raw_data_units"></div>
+      <div id="raw_data_info"></div>
+      <div id="data_vis">
+       <i id="icn_0" class="ion-record"></i>
+       <i id="icn_1" class="ion-record"></i>
+       <i id="icn_2" class="ion-record"></i>
+       <i id="icn_3" class="ion-record"></i>
+       <i id="icn_4" class="ion-record"></i>
+      </div>
+
+    </p>
+  </ons-page>
+</ons-template>
+
+<ons-template id="tides.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select Region</div>
+    </ons-toolbar>
+
+    <p style="text-align: center">
+      <ons-button modifier="light" ng-click="app.navi.popPage('tides.html');">Pop</ons-button>
+    </p>
+  </ons-page>
+</ons-template>
+  
+ <!--  <ons-sliding-menu
     var="app.menu"
     menu-page="menu.html" main-page="d2.html" side="left"
     max-slide-distance="260px" swipeable="true" type="reveal">
@@ -158,7 +443,7 @@
       </div>
 
     </ons-page>
-  </ons-template>
+  </ons-template> -->
 
 
 
